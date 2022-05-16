@@ -1,0 +1,6 @@
+com\abc\AbcCompanyApplication.class
+com\abc\rest\ItemManagerRest.class
+com\abc\services\ItemManagerServiceImpl.class
+com\abc\Repository\ItemRepository.class
+com\abc\models\Item.class
+com\abc\services\ItemManagerService.class

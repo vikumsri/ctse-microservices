@@ -44,7 +44,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>docker-abc</finalName>
+		<finalName>docker-abc-item-service</finalName>
 	</build>
 
 </project>
