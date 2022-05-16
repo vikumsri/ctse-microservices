@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: itemhandlingservice
+spec:
+  selector:
+    matchLabels:
+      app: itemhandlingservice
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: itemhandlingservice
+    spec:
+      containers:
+        - name: itemhandlingservice
+          image: docker.io/vikumsri/docker-abc-item-handling:v1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5003
