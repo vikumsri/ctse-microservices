@@ -1,0 +1,77 @@
+name: ABC Company CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOCKER_USER_VIKUMSRI: ${{secrets.DOCKER_USER_VIKUMSRI}}
+  DOCKER_PASSWORD_VIKUMSRI: ${{secrets.DOCKER_PASSWORD_VIKUMSRI}}
+  ITEM_REPO_NAME_VIKUMSRI: ${{secrets.ITEM_REPO_NAME_VIKUMSRI}}
+  DOCKER_USER_SANDUNI: ${{secrets.DOCKER_USER_SANDUNI}}
+  DOCKER_PASSWORD_SANDUNI: ${{secrets.DOCKER_PASSWORD_SANDUNI}}
+  ORDER_REPO_NAME_SANDUNI: ${{secrets.ORDER_REPO_NAME_SANDUNI}}
+  DOCKER_USER_UMESH: ${{secrets.DOCKER_USER_UMESH}}
+  DOCKER_PASSWORD_UMESH: ${{secrets.DOCKER_PASSWORD_UMESH}}
+  USER_REPO_NAME_UMESH: ${{secrets.USER_REPO_NAME_UMESH}}
+
+
+jobs:
+  order-service:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Work Dir
+      run: echo $(pwd)
+    - name: Docker login
+      run: | # Login to Dockerhub of sanduni
+        docker login -u $DOCKER_USER_SANDUNI -p $DOCKER_PASSWORD_SANDUNI
+    - name: Build order service docker image
+      run: |
+        cd src/services/order-service
+        docker build . --file Dockerfile --tag $DOCKER_USER_SANDUNI/$ORDER_REPO_NAME_SANDUNI:v1.0.0
+    - name: Push order service docker image
+      run: docker push $DOCKER_USER_SANDUNI/$ORDER_REPO_NAME_SANDUNI:v1.0.0
+  
+  user-service:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: | # Login to Dockerhub - Umesh
+        docker login -u $DOCKER_USER_UMESH -p $DOCKER_PASSWORD_UMESH
+    - name: Build user service docker image
+      run: |
+        cd src/user_service
+        docker build . --file Dockerfile --tag $DOCKER_USER_UMESH/$USER_REPO_NAME_UMESH:v1.0.0
+    - name: Push user service docker image
+      run: docker push $DOCKER_USER_UMESH/$USER_REPO_NAME_UMESH:v1.0.0
+  
+  item-handling-service:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: | # Login to Dockerhub - Vikumsri
+        docker login -u $DOCKER_USER_VIKUMSRI -p $DOCKER_PASSWORD_VIKUMSRI
+    - name: Build item handling service docker image
+      run: |
+        cd src/auth_service
+        docker build . --file Dockerfile --tag $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
+    - name: Push item service docker image
+      run: docker push $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
+
+  
+  deploy:
+    needs: [order-service, user-service, item-handling-service]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Configure Kubernetes Credentials
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.3
+      with:
+        creds: '${{ secrets.CLUSTER_CREDENTIALS }}'
+        cluster-name: ctse-a3
+    - name: Deploy to K8s
+      run: kubectl apply -f release/
