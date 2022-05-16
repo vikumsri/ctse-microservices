@@ -29,7 +29,7 @@ jobs:
         docker login -u $DOCKER_USER_SANDUNI -p $DOCKER_PASSWORD_SANDUNI
     - name: Build order service docker image
       run: |
-        cd src/services/order-service
+        cd src/services/order-services
         docker build . --file Dockerfile --tag $DOCKER_USER_SANDUNI/$ORDER_REPO_NAME_SANDUNI:v1.0.0
     - name: Push order service docker image
       run: docker push $DOCKER_USER_SANDUNI/$ORDER_REPO_NAME_SANDUNI:v1.0.0
@@ -43,7 +43,7 @@ jobs:
         docker login -u $DOCKER_USER_UMESH -p $DOCKER_PASSWORD_UMESH
     - name: Build user service docker image
       run: |
-        cd src/user_service
+        cd src/services/user-service
         docker build . --file Dockerfile --tag $DOCKER_USER_UMESH/$USER_REPO_NAME_UMESH:v1.0.0
     - name: Push user service docker image
       run: docker push $DOCKER_USER_UMESH/$USER_REPO_NAME_UMESH:v1.0.0
@@ -57,7 +57,7 @@ jobs:
         docker login -u $DOCKER_USER_VIKUMSRI -p $DOCKER_PASSWORD_VIKUMSRI
     - name: Build item handling service docker image
       run: |
-        cd src/auth_service
+        cd src/services/item-handling-service
         docker build . --file Dockerfile --tag $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
     - name: Push item service docker image
       run: docker push $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
