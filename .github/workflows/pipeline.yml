@@ -48,23 +48,23 @@ jobs:
     - name: Push user service docker image
       run: docker push $DOCKER_USER_UMESH/$USER_REPO_NAME_UMESH:v1.0.0
   
-#   item-handling-service:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Docker login
-#       run: | # Login to Dockerhub - Vikumsri
-#         docker login -u $DOCKER_USER_VIKUMSRI -p $DOCKER_PASSWORD_VIKUMSRI
-#     - name: Build item handling service docker image
-#       run: |
-#         cd src/services/item-handling-service
-#         docker build . --file Dockerfile --tag $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
-#     - name: Push item service docker image
-#       run: docker push $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
+  item-handling-service:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: | # Login to Dockerhub - Vikumsri
+        docker login -u $DOCKER_USER_VIKUMSRI -p $DOCKER_PASSWORD_VIKUMSRI
+    - name: Build item handling service docker image
+      run: |
+        cd src/services/item-handling-service
+        docker build . --file Dockerfile --tag $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
+    - name: Push item service docker image
+      run: docker push $DOCKER_USER_VIKUMSRI/$ITEM_REPO_NAME_VIKUMSRI:v1.0.0
 
   
   deploy:
-    needs: [order-service, user-service]
+    needs: [order-service, user-service, item-handling-service]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
