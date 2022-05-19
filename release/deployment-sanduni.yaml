@@ -17,4 +17,4 @@ spec:
           image: docker.io/sanduni98/docker-abc-order:v1.0.0
           imagePullPolicy: Always
           ports:
-            - containerPort: 5003
+            - containerPort: 8080

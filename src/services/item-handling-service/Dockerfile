@@ -1,6 +1,6 @@
 FROM java:8
 
-EXPOSE 5003
+EXPOSE 8080
 
 ADD target/docker-abc-item-service.jar docker-abc-item-service.jar
 

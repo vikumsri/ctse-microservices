@@ -17,4 +17,4 @@ spec:
           image: docker.io/dockerdana800433/it19168364:v1.0.0
           imagePullPolicy: Always
           ports:
-            - containerPort: 5003
+            - containerPort: 8080
