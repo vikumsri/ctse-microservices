@@ -1,6 +1,6 @@
-U:\CTSE\cts-a3\src\main\java\com\abc\service\UserManagerServiceImpl.java
-U:\CTSE\cts-a3\src\main\java\com\abc\model\User.java
-U:\CTSE\cts-a3\src\main\java\com\abc\AbcCompanyApplication.java
-U:\CTSE\cts-a3\src\main\java\com\abc\service\UserManagerService.java
-U:\CTSE\cts-a3\src\main\java\com\abc\repository\UserRepository.java
-U:\CTSE\cts-a3\src\main\java\com\abc\rest\UsermanagerRest.java
+E:\programs\ctse\ctse-microservices\src\services\user-service\src\main\java\com\abc\models\User.java
+E:\programs\ctse\ctse-microservices\src\services\user-service\src\main\java\com\abc\AbcCompanyApplication.java
+E:\programs\ctse\ctse-microservices\src\services\user-service\src\main\java\com\abc\Repository\UserRepository.java
+E:\programs\ctse\ctse-microservices\src\services\user-service\src\main\java\com\abc\rest\UsermanagerRest.java
+E:\programs\ctse\ctse-microservices\src\services\user-service\src\main\java\com\abc\services\UserManagerService.java
+E:\programs\ctse\ctse-microservices\src\services\user-service\src\main\java\com\abc\services\UserManagerServiceImpl.java
